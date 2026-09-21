@@ -85,7 +85,7 @@ const handleAddressSubmit = async (e) => {
     
     // Backend ko address data bhejna
     try {
-      const response = await fetch('http://localhost:5000/api/orders', {
+      const response = await fetch('https://trio-backend-held.onrender.com/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -111,7 +111,7 @@ const handleAddressSubmit = async (e) => {
   // Final Order Submit (Payment ke baad)
   const handlePaymentSubmit = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/orders', {
+      const response = await fetch('https://trio-backend-held.onrender.com/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
