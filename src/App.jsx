@@ -141,7 +141,7 @@ const handleAddressSubmit = async (e) => {
       <Toaster position="top-center" />
       {/* Navbar */}
       <nav className="navbar">
-        <h1 onClick={scrollToTop}> TRIO — HOUSE OF STYLE</h1>
+        <h1 onClick={scrollToTop}> TRIO — HOUSE OF FRAGRANCE</h1>
         <ul>
           <li onClick={scrollToTop}>Home</li>
           <li onClick={scrollToShop}>Shop</li>
