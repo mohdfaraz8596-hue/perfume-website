@@ -11,7 +11,8 @@ function App() {
     fullName: '', mobile: '', house: '', street: '', landmark: '', city: '', state: '', pincode: ''
   })
   const [paymentMethod, setPaymentMethod] = useState('upi')
-// Admin States
+const [isLoading, setIsLoading] = useState(false)
+  // Admin States
   const [adminPass, setAdminPass] = useState('')
   const [adminLoggedIn, setAdminLoggedIn] = useState(false)
   const [orders, setOrders] = useState([])
@@ -86,6 +87,7 @@ function App() {
 const handleAddressSubmit = async (e) =>
    {
     e.preventDefault()
+    setIsLoading(true)
     
     // Backend ko address data bhejna
     try {
@@ -114,6 +116,7 @@ const handleAddressSubmit = async (e) =>
 
   // Final Order Submit (Payment ke baad)
   const handlePaymentSubmit = async () => {
+    setIsLoading(true)
     try {
       const response = await fetch('https://trio-backend-held.onrender.com/api/orders', {
         method: 'POST',
@@ -343,7 +346,9 @@ const handleAddressSubmit = async (e) =>
             <input type="text" name="city" placeholder="City" value={address.city} onChange={handleAddressChange} required />
             <input type="text" name="state" placeholder="State" value={address.state} onChange={handleAddressChange} required />
             <input type="text" name="pincode" placeholder="PIN Code" value={address.pincode} onChange={handleAddressChange} required />
-            <button type="submit" className="hero-btn">CONTINUE</button>
+          <button type="submit" className="hero-btn" disabled={isLoading}>
+  {isLoading ? 'PROCESSING...' : 'CONTINUE'}
+</button>
           </form>
         </div>
       )}
@@ -384,9 +389,9 @@ const handleAddressSubmit = async (e) =>
             </div>
           )}
 
-          <button className="hero-btn" onClick={handlePaymentSubmit}>
-            {paymentMethod === 'upi' ? 'I HAVE PAID' : 'CONTINUE TO PAYMENT'}
-          </button>
+          <button className="hero-btn" onClick={handlePaymentSubmit} disabled={isLoading}>
+  {isLoading ? 'PROCESSING...' : (paymentMethod === 'upi' ? 'I HAVE PAID' : 'CONTINUE TO PAYMENT')}
+</button>
         </div>
       )}
 {/* ================= ADMIN PAGE ================= */}
@@ -402,7 +407,9 @@ const handleAddressSubmit = async (e) =>
                 onChange={(e) => setAdminPass(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleAdminLogin()}
               />
-              <button className="hero-btn" onClick={handleAdminLogin}>LOGIN</button>
+              <button className="hero-btn" onClick={fetchOrders} disabled={isLoading}>
+  {isLoading ? 'LOADING...' : 'REFRESH'}
+</button>
             </div>
           ) : (
             <div className="admin-dashboard">

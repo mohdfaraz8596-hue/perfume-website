@@ -396,3 +396,14 @@ body { background-color: #faf7f2; color: #333; }
     text-align: center;
   }
 }
+/* Loading Button State */
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.hero-btn:disabled:hover {
+  transform: none;
+  background-color: #d4af37;
+  color: #1a1a1a;
+}
