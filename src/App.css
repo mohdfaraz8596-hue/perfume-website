@@ -151,3 +151,87 @@ body { background-color: #faf7f2; color: #333; }
   min-width: 20px;
   text-align: center;
 }
+/* ===== MOBILE RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: 15px 10px;
+    gap: 15px;
+  }
+
+  .navbar h1 {
+    font-size: 18px;
+    letter-spacing: 1px;
+  }
+
+  .navbar ul {
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .navbar li {
+    font-size: 13px;
+  }
+
+  .cart-icon {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .hero h2 {
+    font-size: 40px;
+  }
+  
+  .hero-tagline {
+    font-size: 18px;
+  }
+
+  .hero p {
+    font-size: 14px;
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr;
+    padding: 0 10px;
+  }
+
+  .story, .why-trio, .about, .contact, .final-cta {
+    padding: 50px 15px;
+  }
+
+  .story h2, .why-trio h2, .about h2, .contact h2, .final-cta h2 {
+    font-size: 22px;
+  }
+
+  .story-heading, .about-tagline, .contact-tagline {
+    font-size: 18px;
+  }
+
+  .checkout-page {
+    padding: 40px 15px;
+  }
+
+  .cart-container {
+    padding: 15px;
+  }
+
+  .cart-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .cart-item-info {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .quantity-controls {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .address-form, .payment-options, .upi-box {
+    padding: 0 10px;
+  }
+}
