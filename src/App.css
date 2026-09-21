@@ -235,3 +235,164 @@ body { background-color: #faf7f2; color: #333; }
     padding: 0 10px;
   }
 }
+/* ===== ADMIN PANEL ===== */
+.admin-page {
+  padding: 60px 20px;
+  min-height: 80vh;
+  background-color: #faf7f2;
+}
+
+.admin-login {
+  max-width: 400px;
+  margin: 100px auto;
+  background: #1a1a1a;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.admin-login h2 {
+  color: #d4af37;
+  margin-bottom: 25px;
+  letter-spacing: 3px;
+}
+
+.admin-login input {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  background: #2c2c2c;
+  color: #fff;
+  margin-bottom: 20px;
+  font-size: 15px;
+  outline: none;
+}
+
+.admin-login input:focus {
+  border-color: #d4af37;
+}
+
+.admin-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.admin-header h2 {
+  color: #1a1a1a;
+  font-size: 28px;
+  letter-spacing: 2px;
+}
+
+.no-orders {
+  text-align: center;
+  font-size: 18px;
+  color: #888;
+  padding: 60px 0;
+}
+
+.orders-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 20px;
+}
+
+.order-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  border-left: 4px solid #d4af37;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.order-id {
+  font-weight: bold;
+  color: #1a1a1a;
+  font-size: 16px;
+}
+
+.status-badge {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: #ffc107;
+  color: #1a1a1a;
+}
+
+.status-badge.shipped {
+  background: #2196F3;
+  color: #fff;
+}
+
+.status-badge.delivered {
+  background: #4CAF50;
+  color: #fff;
+}
+
+.order-body p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.order-body strong {
+  color: #1a1a1a;
+}
+
+.order-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.order-actions button {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #d4af37;
+  background: transparent;
+  color: #d4af37;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.order-actions button:hover {
+  background: #d4af37;
+  color: #1a1a1a;
+}
+
+@media (max-width: 768px) {
+  .orders-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .admin-header {
+    flex-direction: column;
+    text-align: center;
+  }
+}

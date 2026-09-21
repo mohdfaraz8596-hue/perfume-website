@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import toast, { Toaster } from 'react-hot-toast';
   // <-- YEH NAYI LINE ADD KAREIN
@@ -11,7 +11,10 @@ function App() {
     fullName: '', mobile: '', house: '', street: '', landmark: '', city: '', state: '', pincode: ''
   })
   const [paymentMethod, setPaymentMethod] = useState('upi')
-
+// Admin States
+  const [adminPass, setAdminPass] = useState('')
+  const [adminLoggedIn, setAdminLoggedIn] = useState(false)
+  const [orders, setOrders] = useState([])
   // Perfume Data
   const perfumes = [
     { id: 1, name: 'TRIO ROYALE OUD', price: 1500, image: '/perfume1.jpg', description: 'A rich and sophisticated oud fragrance with a warm, luxurious character.' },
@@ -80,7 +83,8 @@ function App() {
   const handleAddressChange = (e) => {
     setAddress({ ...address, [e.target.name]: e.target.value })
   }
-const handleAddressSubmit = async (e) => {
+const handleAddressSubmit = async (e) =>
+   {
     e.preventDefault()
     
     // Backend ko address data bhejna
@@ -135,7 +139,49 @@ const handleAddressSubmit = async (e) => {
       alert("Server se connect nahi ho pa raha. Kya backend chal raha hai?");
     }
   }
+// URL mein #trio-secret-admin-2025 ho toh admin view dikhao
+  useEffect(() => {
+    if (window.location.hash === '#trio-secret-admin-2025') {
+      setView('admin')
+    }
+  }, [])
 
+  // Saare orders fetch karo
+  const fetchOrders = async () => {
+    try {
+      const response = await fetch('https://trio-backend-held.onrender.com/api/orders')
+      const data = await response.json()
+      setOrders(data)
+      toast.success(`${data.length} orders loaded!`)
+    } catch (error) {
+      toast.error("Orders load nahi ho pa rahe")
+    }
+  }
+
+  // Admin Login
+  const handleAdminLogin = () => {
+    if (adminPass === 'adilfarazamaan240010') {
+      setAdminLoggedIn(true)
+      fetchOrders()
+    } else {
+      toast.error("Galat password!")
+    }
+  }
+
+  // Order Status Update
+  const updateOrderStatus = async (id, newStatus) => {
+    try {
+      await fetch(`https://trio-backend-held.onrender.com/api/orders/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus })
+      })
+      toast.success("Status updated!")
+      fetchOrders()
+    } catch (error) {
+      toast.error("Update failed")
+    }
+  }
   return (
     <div className="app">
       <Toaster position="top-center" />
@@ -343,7 +389,62 @@ const handleAddressSubmit = async (e) => {
           </button>
         </div>
       )}
-
+{/* ================= ADMIN PAGE ================= */}
+      {view === 'admin' && (
+        <div className="admin-page">
+          {!adminLoggedIn ? (
+            <div className="admin-login">
+              <h2>ADMIN LOGIN</h2>
+              <input 
+                type="password" 
+                placeholder="Enter Admin Password" 
+                value={adminPass}
+                onChange={(e) => setAdminPass(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleAdminLogin()}
+              />
+              <button className="hero-btn" onClick={handleAdminLogin}>LOGIN</button>
+            </div>
+          ) : (
+            <div className="admin-dashboard">
+              <div className="admin-header">
+                <h2>TRIO ORDERS DASHBOARD</h2>
+                <button className="hero-btn" onClick={fetchOrders}>REFRESH</button>
+              </div>
+              
+              {orders.length === 0 ? (
+                <p className="no-orders">Abhi tak koi order nahi aaya hai.</p>
+              ) : (
+                <div className="orders-list">
+                  {orders.map((order) => (
+                    <div className="order-card" key={order._id}>
+                      <div className="order-header">
+                        <span className="order-id">#{order._id.slice(-6).toUpperCase()}</span>
+                        <span className={`status-badge ${order.status?.toLowerCase().replace(/\s+/g, '-')}`}>
+                          {order.status || 'Pending'}
+                        </span>
+                      </div>
+                      <div className="order-body">
+                        <p><strong>Name:</strong> {order.fullName}</p>
+                        <p><strong>Mobile:</strong> {order.mobile}</p>
+                        <p><strong>Address:</strong> {order.house}, {order.street}, {order.landmark && `${order.landmark}, `}{order.city}, {order.state} - {order.pincode}</p>
+                        <p><strong>Items:</strong> {order.items?.map(i => `${i.name} (x${i.quantity || 1})`).join(', ')}</p>
+                        <p><strong>Total:</strong> ₹{order.totalAmount}</p>
+                        <p><strong>Payment:</strong> {order.paymentMethod}</p>
+                        <p><strong>Date:</strong> {new Date(order.createdAt).toLocaleString()}</p>
+                      </div>
+                      <div className="order-actions">
+                        <button onClick={() => updateOrderStatus(order._id, 'Pending')}>Pending</button>
+                        <button onClick={() => updateOrderStatus(order._id, 'Shipped')}>Shipped</button>
+                        <button onClick={() => updateOrderStatus(order._id, 'Delivered')}>Delivered</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
       {/* Footer */}
       <footer className="footer">
         <h3>TRIO</h3>
