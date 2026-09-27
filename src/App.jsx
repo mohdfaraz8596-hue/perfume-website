@@ -492,7 +492,7 @@ const handleAddressSubmit = async (e) =>
               <div className="product-extra-info">
                 <p>✅ Premium Quality Fragrance</p>
                 <p>✅ Long Lasting (8-10 hours)</p>
-                <p>✅ Free Delivery on orders above ₹999</p>
+                <p>✅ Crafted to leave an impression</p>
               </div>
             </div>
           </div>
