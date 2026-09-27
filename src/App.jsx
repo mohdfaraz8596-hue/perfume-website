@@ -18,6 +18,8 @@ const [selectedPerfume, setSelectedPerfume] = useState(null)
   const [adminLoggedIn, setAdminLoggedIn] = useState(false)
   const [orders, setOrders] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
+  const [couponCode, setCouponCode] = useState('')
+  const [discount, setDiscount] = useState(0)
   // Perfume Data
   const perfumes = [
     { id: 1, name: 'TRIO ROYALE OUD', price: 1500, image: '/perfume1.jpg', description: 'A rich and sophisticated oud fragrance with a warm, luxurious character.' },
@@ -33,7 +35,7 @@ const [selectedPerfume, setSelectedPerfume] = useState(null)
   // Cart Calculations
   const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
   const deliveryCharge = cart.length > 0 ? 45 : 0
-  const totalAmount = subtotal + deliveryCharge
+  const totalAmount = subtotal + deliveryCharge - discount
 
   // Scroll Functions
   const scrollToTop = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); setView('home'); }
@@ -118,7 +120,19 @@ const handleAddressSubmit = async (e) =>
       toast.error("Server connect nahi ho pa raha. Backend check karein.");
     }
   }
-
+// Coupon Apply karne ke liye
+  const applyCoupon = () => {
+    if (couponCode.toUpperCase() === 'TRIO10') {
+      setDiscount(Math.round(subtotal * 0.10))
+      toast.success("🎉 Coupon applied! You saved 10%")
+    } else if (couponCode.toUpperCase() === 'TRIO20') {
+      setDiscount(Math.round(subtotal * 0.20))
+      toast.success("🎉 Coupon applied! You saved 20%")
+    } else {
+      setDiscount(0)
+      toast.error("Invalid coupon code")
+    }
+  }
   // Final Order Submit (Payment ke baad)
   const handlePaymentSubmit = async () => {
     setIsLoading(true)
@@ -360,6 +374,25 @@ const handleAddressSubmit = async (e) =>
                   <div className="summary-row"><span>Subtotal</span><span>₹{subtotal}</span></div>
                   <div className="summary-row"><span>Delivery Charge</span><span>₹{deliveryCharge}</span></div>
                   <div className="summary-row total"><span>Total Amount</span><span>₹{totalAmount}</span></div>
+                 <div className="coupon-section">
+                  <input 
+                    type="text" 
+                    placeholder="Coupon Code (Try: TRIO10)" 
+                    className="coupon-input"
+                    value={couponCode}
+                    onChange={(e) => setCouponCode(e.target.value)}
+                  />
+                  <button className="coupon-btn" onClick={applyCoupon}>
+                    APPLY
+                  </button>
+                </div>
+
+                {discount > 0 && (
+                  <div className="summary-row discount-row">
+                    <span>Discount</span>
+                    <span>-₹{discount}</span>
+                  </div>
+                )}
                   <button className="hero-btn" onClick={() => setView('address')}>PROCEED TO BUY</button>
                 </div>
               </>
