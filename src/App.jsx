@@ -16,6 +16,7 @@ const [isLoading, setIsLoading] = useState(false)const [selectedPerfume, setSele
   const [adminPass, setAdminPass] = useState('')
   const [adminLoggedIn, setAdminLoggedIn] = useState(false)
   const [orders, setOrders] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
   // Perfume Data
   const perfumes = [
     { id: 1, name: 'TRIO ROYALE OUD', price: 1500, image: '/perfume1.jpg', description: 'A rich and sophisticated oud fragrance with a warm, luxurious character.' },
@@ -24,7 +25,10 @@ const [isLoading, setIsLoading] = useState(false)const [selectedPerfume, setSele
     { id: 4, name: 'TRIO BLUE', price: 1000, image: '/perfume4.jpg', description: 'A fresh and invigorating scent designed for a confident everyday presence.' },
     { id: 5, name: 'TRIO MUSK', price: 1000, image: '/perfume5.jpg', description: 'A smooth and elegant fragrance with a soft, memorable finish.' },
   ]
-
+// Search Filter Logic
+  const filteredPerfumes = perfumes.filter((perfume) =>
+    perfume.name.toLowerCase().includes(searchTerm.toLowerCase())
+  )
   // Cart Calculations
   const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
   const deliveryCharge = cart.length > 0 ? 45 : 0
@@ -217,8 +221,17 @@ const handleAddressSubmit = async (e) =>
           <section className="products" id="shop">
             <h2>OUR SIGNATURE COLLECTION</h2>
             <p className="section-subtitle">Discover Your Distinctive Scent</p>
+            <div className="search-container">
+          <input 
+            type="text" 
+            placeholder="🔍 Search for your signature scent..." 
+            className="search-input"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
             <div className="product-grid">
-              {perfumes.map((perfume) => (
+              {filteredPerfumes.map((perfume) => (
             <div 
               className="product-card" 
               key={perfume.id} 
