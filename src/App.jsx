@@ -224,14 +224,15 @@ const handleAddressSubmit = async (e) =>
           <p className="section-subtitle">Discover Your Distinctive Scent</p>
           
           <div className="search-container">
-            <input 
-              type="text" 
-              placeholder="🔍 Search for your signature scent..." 
-              className="search-input"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
+          <span className="search-icon">🔍</span>
+          <input 
+            type="text" 
+            placeholder="Search for your signature scent..." 
+            className="search-input"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
 
           <div className="product-grid">
             {filteredPerfumes.map((perfume) => (

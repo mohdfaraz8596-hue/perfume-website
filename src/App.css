@@ -493,3 +493,56 @@ button:disabled {
   .product-detail-info h1 { font-size: 24px; }
   .product-detail-price { font-size: 22px; }
 }
+/* ===== PROFESSIONAL SEARCH BAR ===== */
+.search-container {
+  position: relative;
+  max-width: 550px;
+  margin: 0 auto 50px auto;
+  padding: 0 20px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #999;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 18px 25px 18px 55px;
+  border: 2px solid #e0dcd5;
+  border-radius: 50px;
+  font-size: 16px;
+  outline: none;
+  font-family: inherit;
+  background-color: #fff;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #d4af37;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.15);
+}
+
+.search-input::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .search-container {
+    margin-bottom: 30px;
+  }
+  .search-icon {
+    left: 35px;
+  }
+  .search-input {
+    padding: 15px 20px 15px 45px;
+    font-size: 15px;
+  }
+}
