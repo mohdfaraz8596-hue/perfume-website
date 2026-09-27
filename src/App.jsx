@@ -275,7 +275,7 @@ const handleAddressSubmit = async (e) =>
           <section className="about" id="about">
             <h2>ABOUT TRIO</h2>
             <h3 className="about-tagline">A Scent That Speaks for You</h3>
-            <p>TRIO is a modern fragrance brand founded by Faraz, Adil, and Amaan.</p>
+            <p>TRIO is a modern fragrance brand founded by three passionate individuals with a shared vision.</p>
             <p>Born from a shared passion for style, confidence, and self-expression, TRIO creates premium fragrances for people who want to stand out effortlessly.</p>
             <p>From bold oud and deep noir to warm amber, fresh blue, and smooth musk, every scent is designed to match a different mood and become a part of your identity.</p>
             <p className="about-highlight">Because fragrance is not just something you wear.<br />It is the impression you leave behind.</p>
