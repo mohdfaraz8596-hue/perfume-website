@@ -20,6 +20,8 @@ const [selectedPerfume, setSelectedPerfume] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [couponCode, setCouponCode] = useState('')
   const [discount, setDiscount] = useState(0)
+  const [trackingId, setTrackingId] = useState('')
+  const [trackedOrder, setTrackedOrder] = useState(null)
   // Perfume Data
   const perfumes = [
     { id: 1, name: 'TRIO ROYALE OUD', price: 1500, image: '/perfume1.jpg', description: 'A rich and sophisticated oud fragrance with a warm, luxurious character.' },
@@ -133,6 +135,29 @@ const handleAddressSubmit = async (e) =>
       toast.error("Invalid coupon code")
     }
   }
+  // Order Track karne ke liye
+  const trackOrder = async () => {
+    if (!trackingId) {
+      toast.error("Please enter an Order ID")
+      return
+    }
+    setIsLoading(true)
+    try {
+      const response = await fetch(`https://trio-backend-held.onrender.com/api/orders/track/${trackingId}`)
+      const data = await response.json()
+      if (response.ok) {
+        setTrackedOrder(data)
+        toast.success("Order found!")
+      } else {
+        setTrackedOrder(null)
+        toast.error("Order not found. Check your ID.")
+      }
+    } catch (error) {
+      toast.error("Server connect nahi ho pa raha.")
+    } finally {
+      setIsLoading(false)
+    }
+  }
   // Final Order Submit (Payment ke baad)
   const handlePaymentSubmit = async () => {
     setIsLoading(true)
@@ -150,15 +175,16 @@ const handleAddressSubmit = async (e) =>
       });
 
       if (response.ok) {
-        alert(`Order Placed Successfully! Payment Method: ${paymentMethod.toUpperCase()}`);
+        const data = await response.json()
+        toast.success(`Order Placed! Your Order ID: ${data.order._id.slice(-6).toUpperCase()}`, { duration: 8000 })
         setCart([]);
         setView('home');
       } else {
-        alert("Order place karne mein dikkat aayi. Dobara try karein.");
+        toast.error("Order place karne mein dikkat aayi. Dobara try karein.");
       }
     } catch (error) {
       console.error(error);
-      alert("Server se connect nahi ho pa raha. Kya backend chal raha hai?");
+      toast.error("Server se connect nahi ho pa raha. Kya backend chal raha hai?");
     }
   }
 // URL mein #trio-secret-admin-2025 ho toh admin view dikhao
