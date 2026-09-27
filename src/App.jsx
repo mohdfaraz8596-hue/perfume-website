@@ -11,7 +11,7 @@ function App() {
     fullName: '', mobile: '', house: '', street: '', landmark: '', city: '', state: '', pincode: ''
   })
   const [paymentMethod, setPaymentMethod] = useState('upi')
-const [isLoading, setIsLoading] = useState(false)
+const [isLoading, setIsLoading] = useState(false)const [selectedPerfume, setSelectedPerfume] = useState(null)
   // Admin States
   const [adminPass, setAdminPass] = useState('')
   const [adminLoggedIn, setAdminLoggedIn] = useState(false)
@@ -219,15 +219,23 @@ const handleAddressSubmit = async (e) =>
             <p className="section-subtitle">Discover Your Distinctive Scent</p>
             <div className="product-grid">
               {perfumes.map((perfume) => (
-                <div className="product-card" key={perfume.id}>
-                  <img src={perfume.image} alt={perfume.name} />
-                  <h3>{perfume.name}</h3>
-                  <p className="description">{perfume.description}</p>
-                  <p className="price">₹{perfume.price}</p>
-                  <button onClick={() => addToCart(perfume)}>Add to Cart</button>
-                </div>
-              ))}
+            <div 
+              className="product-card" 
+              key={perfume.id} 
+              onClick={() => { setSelectedPerfume(perfume); setView('product'); }}
+              style={{ cursor: 'pointer' }}
+            >
+              <img src={perfume.image} alt={perfume.name} />
+              <h3>{perfume.name}</h3>
+              <p className="description">{perfume.description}</p>
+              <p className="price">₹{perfume.price}</p>
+              
+              {/* IMPORTANT: Add to Cart button par e.stopPropagation() lagayein */}
+              <button onClick={(e) => { e.stopPropagation(); addToCart(perfume); }}>
+                Add to Cart
+              </button>
             </div>
+          ))}
           </section>
 
           <section className="story">
@@ -392,6 +400,41 @@ const handleAddressSubmit = async (e) =>
           <button className="hero-btn" onClick={handlePaymentSubmit} disabled={isLoading}>
   {isLoading ? 'PROCESSING...' : (paymentMethod === 'upi' ? 'I HAVE PAID' : 'CONTINUE TO PAYMENT')}
 </button>
+        </div>
+      )}
+      {/* ================= PRODUCT DETAIL PAGE ================= */}
+      {view === 'product' && selectedPerfume && (
+        <div className="product-detail-page">
+          <button className="back-btn" onClick={() => setView('home')}>
+            ← Back to Shop
+          </button>
+          
+          <div className="product-detail-container">
+            <div className="product-detail-image">
+              <img src={selectedPerfume.image} alt={selectedPerfume.name} />
+            </div>
+            
+            <div className="product-detail-info">
+              <h1>{selectedPerfume.name}</h1>
+              <p className="product-detail-price">₹{selectedPerfume.price}</p>
+              <p className="product-detail-desc">{selectedPerfume.description}</p>
+              
+              <div className="product-detail-actions">
+                <button 
+                  className="hero-btn" 
+                  onClick={() => addToCart(selectedPerfume)}
+                >
+                  ADD TO CART
+                </button>
+              </div>
+
+              <div className="product-extra-info">
+                <p>✅ Premium Quality Fragrance</p>
+                <p>✅ Long Lasting (8-10 hours)</p>
+                <p>✅ Free Delivery on orders above ₹999</p>
+              </div>
+            </div>
+          </div>
         </div>
       )}
 {/* ================= ADMIN PAGE ================= */}
