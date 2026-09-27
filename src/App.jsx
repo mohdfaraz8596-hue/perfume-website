@@ -11,7 +11,8 @@ function App() {
     fullName: '', mobile: '', house: '', street: '', landmark: '', city: '', state: '', pincode: ''
   })
   const [paymentMethod, setPaymentMethod] = useState('upi')
-const [isLoading, setIsLoading] = useState(false)const [selectedPerfume, setSelectedPerfume] = useState(null)
+const [isLoading, setIsLoading] = useState(false) 
+const [selectedPerfume, setSelectedPerfume] = useState(null)
   // Admin States
   const [adminPass, setAdminPass] = useState('')
   const [adminLoggedIn, setAdminLoggedIn] = useState(false)
@@ -219,37 +220,38 @@ const handleAddressSubmit = async (e) =>
           </header>
 
           <section className="products" id="shop">
-            <h2>OUR SIGNATURE COLLECTION</h2>
-            <p className="section-subtitle">Discover Your Distinctive Scent</p>
-            <div className="search-container">
-          <input 
-            type="text" 
-            placeholder="🔍 Search for your signature scent..." 
-            className="search-input"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
-            <div className="product-grid">
-              {filteredPerfumes.map((perfume) => (
-            <div 
-              className="product-card" 
-              key={perfume.id} 
-              onClick={() => { setSelectedPerfume(perfume); setView('product'); }}
-              style={{ cursor: 'pointer' }}
-            >
-              <img src={perfume.image} alt={perfume.name} />
-              <h3>{perfume.name}</h3>
-              <p className="description">{perfume.description}</p>
-              <p className="price">₹{perfume.price}</p>
-              
-              {/* IMPORTANT: Add to Cart button par e.stopPropagation() lagayein */}
-              <button onClick={(e) => { e.stopPropagation(); addToCart(perfume); }}>
-                Add to Cart
-              </button>
-            </div>
-          ))}
-          </section>
+          <h2>OUR SIGNATURE COLLECTION</h2>
+          <p className="section-subtitle">Discover Your Distinctive Scent</p>
+          
+          <div className="search-container">
+            <input 
+              type="text" 
+              placeholder="🔍 Search for your signature scent..." 
+              className="search-input"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+
+          <div className="product-grid">
+            {filteredPerfumes.map((perfume) => (
+              <div 
+                className="product-card" 
+                key={perfume.id}
+                onClick={() => { setSelectedPerfume(perfume); setView('product'); }}
+                style={{ cursor: 'pointer' }}
+              >
+                <img src={perfume.image} alt={perfume.name} />
+                <h3>{perfume.name}</h3>
+                <p className="description">{perfume.description}</p>
+                <p className="price">₹{perfume.price}</p>
+                <button onClick={(e) => { e.stopPropagation(); addToCart(perfume); }}>
+                  Add to Cart
+                </button>
+              </div>
+            ))}
+          </div>
+        </section>
 
           <section className="story">
             <h2>THE TRIO STORY</h2>
