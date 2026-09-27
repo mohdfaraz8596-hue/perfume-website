@@ -545,4 +545,35 @@ button:disabled {
     padding: 15px 20px 15px 45px;
     font-size: 15px;
   }
+
+}
+/* ===== EMPTY CART SCREEN ===== */
+.empty-cart-container {
+  text-align: center;
+  padding: 80px 20px;
+  background-color: #faf7f2;
+}
+
+.empty-cart-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+  opacity: 0.3;
+}
+
+.empty-cart-container h3 {
+  font-size: 28px;
+  color: #1a1a1a;
+  margin-bottom: 15px;
+  letter-spacing: 2px;
+}
+
+.empty-cart-container p {
+  font-size: 16px;
+  color: #777;
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.empty-cart-container .hero-btn {
+  margin-top: 25px;
 }

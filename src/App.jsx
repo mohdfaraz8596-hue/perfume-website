@@ -317,9 +317,21 @@ const handleAddressSubmit = async (e) =>
         <div className="checkout-page">
           <h2>YOUR CART</h2>
           <div className="cart-container">
-            {cart.length === 0 ? (
-              <p className="empty-cart">Your cart is currently empty. Start shopping!</p>
+           {cart.length === 0 ? (
+              <div className="empty-cart-container">
+                <div className="empty-cart-icon">🛒</div>
+                <h3>Your Cart is Empty</h3>
+                <p>Looks like you haven't added any perfumes yet.</p>
+                <p>Discover our signature collection and find your perfect scent.</p>
+                <button 
+                  className="hero-btn" 
+                  onClick={() => { setView('home'); setTimeout(scrollToShop, 100); }}
+                >
+                  START SHOPPING
+                </button>
+              </div>
             ) : (
+              // ... aapka baaki cart wala code (cart-items, cart-summary) waise hi rahega
               <>
                 <div className="cart-items">
                   {cart.map((item, index) => (
