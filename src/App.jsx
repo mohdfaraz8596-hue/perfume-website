@@ -257,7 +257,7 @@ const handleAddressSubmit = async (e) =>
           <section className="story">
             <h2>THE TRIO STORY</h2>
             <h3 className="story-heading">Crafted with Purpose. Worn with Confidence.</h3>
-            <p>TRIO was founded by Faraz, Adil, and Amaan with a shared vision to create distinctive fragrances that leave a lasting impression.</p>
+            <p>TRIO was founded by three minds.One vision. Onebrand. with a shared vision to create distinctive fragrances that leave a lasting impression.</p>
             <p>Every TRIO fragrance is designed to complement your personality, elevate your presence, and become part of your signature style.</p>
           </section>
 
