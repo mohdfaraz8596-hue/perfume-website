@@ -515,7 +515,7 @@ const handleAddressSubmit = async (e) =>
       <footer className="footer">
         <h3>TRIO</h3>
         <p>Three Names. One Signature Scent.</p>
-        <p className="creators">Created by Faraz • Adil • Amaan</p>
+        <p className="creators">Created by trio</p>
       </footer>
     </div>
   )
